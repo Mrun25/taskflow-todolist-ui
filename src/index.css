@@ -94,31 +94,14 @@
     @apply border-border;
   }
 
-  html {
-    @apply scroll-smooth;
-  }
-
   body {
-    @apply bg-background text-foreground font-sans antialiased transition-colors duration-200;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-poppins font-medium tracking-tight;
-  }
-
-  p, span, li, div {
-    @apply font-sans;
-  }
-
-  /* Focus styles */
-  :focus-visible {
-    @apply outline-none ring-2 ring-primary/50 ring-offset-2 ring-offset-background transition-shadow;
+    @apply bg-background text-foreground font-sans;
   }
 }
 
 @layer components {
   .task-card {
-    @apply relative bg-card p-5 rounded-lg border shadow-sm hover:shadow-md transition-all mb-4 will-change-transform;
+    @apply relative bg-card p-4 rounded-lg border shadow-sm hover:shadow-md transition-all mb-3;
   }
 
   .task-card.dark {
@@ -130,15 +113,15 @@
   }
 
   .category-pill {
-    @apply text-xs px-2.5 py-1 rounded-full inline-flex items-center space-x-1 font-medium shadow-sm transition-all;
+    @apply text-xs px-2 py-0.5 rounded-full inline-flex items-center space-x-1;
   }
 
   .spaceship-toggle-track {
-    @apply relative w-20 h-10 rounded-full p-1 transition-colors duration-200 ease-in-out overflow-hidden shadow-inner;
+    @apply relative w-20 h-10 rounded-full p-1 transition-colors duration-200 ease-in-out;
   }
 
   .spaceship-toggle-thumb {
-    @apply absolute flex items-center justify-center w-8 h-8 rounded-full bg-white transition-all duration-300 ease-out shadow-md z-10;
+    @apply absolute flex items-center justify-center w-8 h-8 rounded-full bg-white transition-transform duration-200 ease-in-out shadow-md;
   }
 
   /* Progress Bars and Charts */
@@ -148,52 +131,28 @@
 
   /* Tab Navigation */
   .tab-button {
-    @apply px-4 py-2.5 rounded-lg font-medium text-sm transition-all relative shadow-sm;
+    @apply px-3 py-2 rounded-lg font-medium text-sm transition-all relative;
   }
 
   .tab-button.active {
-    @apply bg-primary text-white dark:bg-primary shadow-md;
+    @apply bg-primary text-white dark:bg-primary;
+  }
+
+  .tab-button.active::before {
+    content: '';
+    @apply absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 bg-primary rounded-full;
   }
 
   /* Fab button */
   .fab {
-    @apply fixed bottom-8 right-8 w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all z-10;
+    @apply fixed bottom-6 right-6 w-14 h-14 rounded-full bg-primary text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all z-10;
   }
 
   .fab.dark {
-    @apply shadow-[0_0_20px_rgba(139,92,246,0.5)];
+    @apply shadow-[0_0_15px_rgba(139,92,246,0.4)];
   }
 
-  /* Animations */
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% { box-shadow: 0 0 8px rgba(139, 92, 246, 0.5); }
-    50% { box-shadow: 0 0 20px rgba(139, 92, 246, 0.8); }
-  }
-
-  .animate-float {
-    animation: float 3s ease-in-out infinite;
-  }
-
-  .animate-pulse-glow {
-    animation: pulse-glow 2s ease-in-out infinite;
-  }
-
-  /* Transitions */
-  .page-transition-enter {
-    @apply opacity-0 translate-y-4;
-  }
-  .page-transition-enter-active {
-    @apply opacity-100 translate-y-0 transition-all duration-300 ease-out;
-  }
-  .page-transition-exit {
-    @apply opacity-100 translate-y-0;
-  }
-  .page-transition-exit-active {
-    @apply opacity-0 -translate-y-4 transition-all duration-200 ease-in;
+  .fab:hover {
+    @apply animate-bounce-subtle;
   }
 }
