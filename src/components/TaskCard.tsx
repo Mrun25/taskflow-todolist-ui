@@ -1,6 +1,6 @@
 
 import { cn } from "@/lib/utils";
-import { CheckCircle2, Circle } from "lucide-react";
+import { CheckCircle2, Circle, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 export type TaskCategory = "work" | "personal" | "study" | "errands";
@@ -18,9 +18,10 @@ export interface Task {
 interface TaskCardProps {
   task: Task;
   onToggleComplete: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
-export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
+export function TaskCard({ task, onToggleComplete, onDelete }: TaskCardProps) {
   const [showConfetti, setShowConfetti] = useState(false);
   
   const handleToggle = () => {
@@ -29,6 +30,11 @@ export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
       setTimeout(() => setShowConfetti(false), 1000);
     }
     onToggleComplete(task.id);
+  };
+
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onDelete(task.id);
   };
 
   const getCategoryColor = (category: TaskCategory) => {
@@ -49,7 +55,7 @@ export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
   return (
     <div 
       className={cn(
-        "task-card",
+        "task-card relative group",
         task.completed && "opacity-75"
       )}
       draggable="true"
@@ -82,6 +88,14 @@ export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
             )}>
               {task.title}
             </h3>
+            
+            <button
+              onClick={handleDelete}
+              className="text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity hover:text-destructive p-1 rounded-full hover:bg-background"
+              aria-label="Delete task"
+            >
+              <Trash2 className="h-4 w-4" />
+            </button>
           </div>
           
           {task.description && (

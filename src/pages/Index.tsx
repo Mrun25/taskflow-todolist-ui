@@ -73,6 +73,16 @@ const Index = () => {
     );
   };
 
+  const handleDeleteTask = (id: string) => {
+    const taskToDelete = tasks.find(task => task.id === id);
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+    
+    toast({
+      title: "Task deleted",
+      description: taskToDelete ? `"${taskToDelete.title}" has been deleted` : "Task has been deleted",
+    });
+  };
+
   const handleAddTask = (newTask: Omit<Task, "id" | "completed">) => {
     const task: Task = {
       id: uuidv4(),
@@ -128,6 +138,7 @@ const Index = () => {
                     key={task.id}
                     task={task}
                     onToggleComplete={handleToggleComplete}
+                    onDelete={handleDeleteTask}
                   />
                 ))}
               </div>
