@@ -2,6 +2,7 @@
 import { cn } from "@/lib/utils";
 import { CheckCircle2, Circle } from "lucide-react";
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export type TaskCategory = "work" | "personal" | "study" | "errands";
 
@@ -47,32 +48,68 @@ export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
   };
 
   return (
-    <div 
+    <motion.div 
       className={cn(
         "task-card",
         task.completed && "opacity-75"
       )}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.3 }}
+      whileHover={{ 
+        y: -4, 
+        boxShadow: "0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)" 
+      }}
+      layout
       draggable="true"
     >
-      {showConfetti && (
-        <>
-          <span className="absolute -top-2 -right-2 w-3 h-3 rounded-full bg-yellow-400 animate-confetti"></span>
-          <span className="absolute -top-1 right-3 w-2 h-2 rounded-full bg-green-400 animate-confetti"></span>
-          <span className="absolute -top-2 right-6 w-2 h-2 rounded-full bg-purple-400 animate-confetti"></span>
-        </>
-      )}
+      <AnimatePresence>
+        {showConfetti && (
+          <>
+            <motion.span 
+              className="absolute -top-2 -right-2 w-3 h-3 rounded-full bg-yellow-400"
+              initial={{ y: 0, opacity: 1 }}
+              animate={{ y: -20, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+            <motion.span 
+              className="absolute -top-1 right-3 w-2 h-2 rounded-full bg-green-400"
+              initial={{ y: 0, opacity: 1 }}
+              animate={{ y: -15, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.7, ease: "easeOut", delay: 0.1 }}
+            />
+            <motion.span 
+              className="absolute -top-2 right-6 w-2 h-2 rounded-full bg-purple-400"
+              initial={{ y: 0, opacity: 1 }}
+              animate={{ y: -20, opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.9, ease: "easeOut", delay: 0.2 }}
+            />
+          </>
+        )}
+      </AnimatePresence>
       
       <div className="flex items-start gap-3">
-        <button 
+        <motion.button 
           onClick={handleToggle} 
           className="mt-0.5 flex-shrink-0 transition-transform hover:scale-110"
+          whileTap={{ scale: 0.9 }}
         >
           {task.completed ? (
-            <CheckCircle2 className="h-5 w-5 text-primary" />
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            >
+              <CheckCircle2 className="h-5 w-5 text-primary" />
+            </motion.div>
           ) : (
             <Circle className="h-5 w-5 text-muted-foreground" />
           )}
-        </button>
+        </motion.button>
         
         <div className="flex-1">
           <div className="flex justify-between items-start mb-1">
@@ -89,12 +126,16 @@ export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
           )}
           
           <div className="flex items-center justify-between mt-2">
-            <span className={cn(
-              "category-pill",
-              getCategoryColor(task.category)
-            )}>
+            <motion.span 
+              className={cn(
+                "category-pill",
+                getCategoryColor(task.category)
+              )}
+              whileHover={{ y: -2 }}
+              transition={{ type: "spring", stiffness: 400, damping: 15 }}
+            >
               {task.category.charAt(0).toUpperCase() + task.category.slice(1)}
-            </span>
+            </motion.span>
             
             {task.timeSlot && (
               <span className="text-xs text-muted-foreground">
@@ -104,6 +145,6 @@ export function TaskCard({ task, onToggleComplete }: TaskCardProps) {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
