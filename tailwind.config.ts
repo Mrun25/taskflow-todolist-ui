@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,23 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// TaskFlow specific colors
+				taskflow: {
+					blush: '#FFD6E0',
+					lavender: '#E5DEFF',
+					skyblue: '#D3E4FD',
+					mint: '#F2FCE2',
+					cyan: '#00F5FF',
+					neonpurple: '#8B5CF6',
+					pink: '#EC4899',
+					lime: '#84CC16',
+				},
+				category: {
+					work: '#FF6B6B',
+					personal: '#4ECDC4',
+					study: '#FFD166',
+					errands: '#A78BFA',
 				}
 			},
 			borderRadius: {
@@ -70,25 +88,50 @@ export default {
 			},
 			keyframes: {
 				'accordion-down': {
-					from: {
-						height: '0'
-					},
-					to: {
-						height: 'var(--radix-accordion-content-height)'
-					}
+					from: { height: '0' },
+					to: { height: 'var(--radix-accordion-content-height)' }
 				},
 				'accordion-up': {
-					from: {
-						height: 'var(--radix-accordion-content-height)'
+					from: { height: 'var(--radix-accordion-content-height)' },
+					to: { height: '0' }
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'pulse-glow': {
+					'0%, 100%': { 
+						boxShadow: '0 0 5px rgba(0, 245, 255, 0.5), 0 0 10px rgba(0, 245, 255, 0.3)'
 					},
-					to: {
-						height: '0'
+					'50%': { 
+						boxShadow: '0 0 15px rgba(0, 245, 255, 0.8), 0 0 20px rgba(0, 245, 255, 0.5)'
 					}
+				},
+				'bounce-subtle': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-5px)' }
+				},
+				'slide-in': {
+					'0%': { transform: 'translateX(100%)' },
+					'100%': { transform: 'translateX(0)' }
+				},
+				'confetti': {
+					'0%': { transform: 'translateY(0) rotate(0)', opacity: '1' },
+					'100%': { transform: 'translateY(-50px) rotate(360deg)', opacity: '0' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 3s ease-in-out infinite',
+				'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+				'bounce-subtle': 'bounce-subtle 2s ease-in-out infinite',
+				'slide-in': 'slide-in 0.3s ease-out',
+				'confetti': 'confetti 1s ease-out forwards'
+			},
+			fontFamily: {
+				sans: ['Inter var', 'sans-serif'],
+				poppins: ['Poppins', 'sans-serif']
 			}
 		}
 	},
